@@ -1,10 +1,35 @@
 (async()=>{
     module.rootScript.parentNode.removeChild(module.rootScript)
-    let Dictionary=await module.shareImport('Dictionary.js')
-    var
+    let
+        Dictionary=await module.shareImport('Dictionary.js'),
         imageData,
         dictionary,
         main
+    {
+        let n=document.createElement('input')
+        n.type='file'
+        n.id='file'
+        document.body.appendChild(n)
+    }
+    document.body.appendChild(document.createTextNode('Threshold: '))
+    {
+        let n=document.createElement('input')
+        n.id='input_threshold'
+        n.type='text'
+        n.value='0.02'
+        document.body.appendChild(n)
+    }{
+        let n=document.createElement('button')
+        n.id='button_go'
+        n.innerHTML='Go'
+        document.body.appendChild(n)
+    }{
+        let n=document.createElement('div')
+        n.id='main'
+        n.style.position='relative'
+        n.style.border='1px solid black'
+        document.body.appendChild(n)
+    }
     function ocr(){
         var threshold
         threshold=parseFloat(input_threshold.value)
@@ -12,12 +37,7 @@
             var x,y,score
             for(x=0;x+word.image.width<=imageData.width;x++)
                 for(y=0;y+word.image.height<=imageData.height;y++){
-                    score=matchingScore(
-                        word.image,
-                        imageData,
-                        x,
-                        y
-                    )
+                    score=matchingScore(word.image,imageData,x,y)
                     if(score<threshold){
                         console.log(x,y,score)
                         drawRect(x,y,word.image.width,word.image.height)
@@ -45,14 +65,12 @@
         }
     }
     function handleFileSelect(e){
-        !function(files){
-            var i
-            for(i=0;i<files.length;i++)
-                extractImage(files[i])
-        }(e.target.files)
+        let files=e.target.files
+        for(let i=0;i<files.length;i++)
+            extractImage(files[i])
     }
     function extractImage(file){
-        var img=new Image
+        let img=new Image
         img.crossOrigin='Anonymous'
         img.onload=function(){
             var
@@ -132,16 +150,13 @@
         }()
     }
     function purgeMain(){
-        var main
-        main=document.getElementById('main')
+        let main=document.getElementById('main')
         main.innerHTML=''
     }
     function Main(){
     }
     Main.prototype.installDiv=function(){
         this.div=document.getElementById('main')
-    }
-    Main.prototype.setupDiv=function(){
     }
     Main.prototype.purgeDiv=function(){
         this.div.innerHTML=''
