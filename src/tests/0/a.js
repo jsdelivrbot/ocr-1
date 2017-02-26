@@ -4,6 +4,7 @@
         Dictionary= await module.shareImport('Dictionary.js'),
         ocr=        await module.shareImport('ocr.js'),
         setupMain=  await module.shareImport('setupMain.js'),
+        extractImage=   await module.shareImport('extractImage.js'),
         imageData,
         dictionary,
         main
@@ -35,22 +36,10 @@
     function handleFileSelect(e){
         let files=e.target.files
         for(let i=0;i<files.length;i++)
-            extractImage(files[i])
-    }
-    function extractImage(file){
-        let img=new Image
-        img.crossOrigin='Anonymous'
-        img.onload=function(){
-            var
-                canvas=document.createElement('CANVAS'),
-                ctx=canvas.getContext('2d')
-            canvas.width=this.width
-            canvas.height=this.height
-            ctx.drawImage(this,0,0)
-            imageData=ctx.getImageData(0,0,this.width,this.height)
-            onImageDataChanged()
-        }
-        img.src=URL.createObjectURL(file)
+            extractImage(files[i]).then(d=>{
+                imageData=d
+                onImageDataChanged()
+            })
     }
     function onImageDataChanged(){
         setupMain(dictionary,imageData)
