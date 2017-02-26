@@ -33,17 +33,6 @@
         n.style.border='1px solid black'
         document.body.appendChild(n)
     }
-    function handleFileSelect(e){
-        let files=e.target.files
-        for(let i=0;i<files.length;i++)
-            extractImage(files[i]).then(d=>{
-                imageData=d
-                onImageDataChanged()
-            })
-    }
-    function onImageDataChanged(){
-        setupMain(dictionary,imageData)
-    }
     function purgeMain(){
         let main=document.getElementById('main')
         main.innerHTML=''
@@ -59,10 +48,14 @@
     dictionary=new Dictionary
     main=new Main
     main.installDiv()
-    document.getElementById('file').addEventListener(
-        'change',
-        handleFileSelect
-    )
+    document.getElementById('file').addEventListener('change',e=>{
+        let files=e.target.files
+        for(let i=0;i<files.length;i++)
+            extractImage(files[i]).then(d=>{
+                imageData=d
+                setupMain(dictionary,imageData)
+            })
+    })
     document.getElementById('button_go').addEventListener(
         'click',
         function(){
