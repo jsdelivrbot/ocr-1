@@ -1,7 +1,6 @@
 (async()=>{
-    ;(async()=>
-        document.head.appendChild(await module.style('main.css'))
-    )()
+    module.rootScript.parentNode.removeChild(module.rootScript)
+    let Dictionary=await module.shareImport('Dictionary.js')
     var
         imageData,
         dictionary,
@@ -53,19 +52,16 @@
         }(e.target.files)
     }
     function extractImage(file){
-        var img = new Image
-        img.crossOrigin='Anonymous';
+        var img=new Image
+        img.crossOrigin='Anonymous'
         img.onload=function(){
             var
-                canvas = document.createElement('CANVAS'),
-                ctx = canvas.getContext('2d')
+                canvas=document.createElement('CANVAS'),
+                ctx=canvas.getContext('2d')
             canvas.width=this.width
             canvas.height=this.height
             ctx.drawImage(this,0,0)
-            imageData=
-                ctx.getImageData(
-                    0,0,this.width,this.height
-                )
+            imageData=ctx.getImageData(0,0,this.width,this.height)
             onImageDataChanged()
         }
         img.src=URL.createObjectURL(file)
@@ -112,8 +108,8 @@
                         return
                     endX=e.pageX-leftOfMain
                     endY=e.pageY-topOfMain
-                    dictionary.push({
-                            left:startX,
+                    dictionary.push(imageData,{
+                        left:startX,
                         top:startY,
                         right:endX,
                         bottom:endY,
@@ -150,64 +146,6 @@
     Main.prototype.purgeDiv=function(){
         this.div.innerHTML=''
     }
-    function Dictionary(){
-        this.content=[]
-    }
-    Dictionary.prototype.push=function(range){
-        var
-            div_dictionary
-        div_dictionary=document.getElementById('div_dictionary')
-        table_dictionary=document.getElementById('table_dictionary')
-        range.image=crop(
-            imageData,
-            range.left,
-            range.top,
-            range.right-range.left,
-            range.bottom-range.top
-        )
-        this.content.push(range)
-        table_dictionary.appendChild(createTr())
-        function createTr(){
-            var tr
-            tr=document.createElement('tr')
-            tr.appendChild(createTd())
-            tr.appendChild(createTd0())
-            return tr
-        }
-        function createTd(){
-            var td
-            td=document.createElement('td')
-            td.appendChild(createCanvas())
-            return td
-        }
-        function createCanvas(){
-            var canvas,image
-            canvas=document.createElement('canvas')
-            canvas.width=range.right-range.left
-            canvas.height=range.bottom-range.top
-            canvas.getContext('2d').putImageData(
-                range.image,
-                0,
-                0
-            )
-            return canvas
-        }
-        function createTd0(){
-            var td
-            td=document.createElement('td')
-            td.innerHTML='<input>'
-            return td
-        }
-    }
-    function crop(imageData,x,y,w,h){
-        var canvas,context
-        canvas=document.createElement('canvas')
-        canvas.width=imageData.width
-        canvas.height=imageData.height
-        context=canvas.getContext('2d')
-        context.putImageData(imageData,0,0)
-        return context.getImageData(x,y,w,h)
-    }
     function drawRect(x,y,w,h){
         var
             main,
@@ -237,4 +175,6 @@
             ocr()
         }
     )
+    document.body.appendChild(document.createTextNode('Dictionary:'))
+    document.body.appendChild(dictionary.div)
 })()
