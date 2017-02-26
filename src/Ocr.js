@@ -1,9 +1,9 @@
 (async()=>{
     let
-        Dictionary= await module.shareImport('Dictionary.js'),
-        ocr=        await module.shareImport('ocr.js'),
-        setupMain=  await module.shareImport('setupMain.js'),
-        extractImage=   await module.shareImport('extractImage.js')
+        Dictionary= await module.shareImport('Ocr/Dictionary.js'),
+        ocr=        await module.shareImport('Ocr/ocr.js'),
+        setupMain=  await module.shareImport('Ocr/setupMain.js'),
+        extractImage=   await module.shareImport('Ocr/extractImage.js')
     function Ocr(){
         let
             imageData,
