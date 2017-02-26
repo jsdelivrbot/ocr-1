@@ -1,4 +1,7 @@
 (async()=>{
+    ;(async()=>
+        document.head.appendChild(await module.style('main.css'))
+    )()
     var
         imageData,
         dictionary,

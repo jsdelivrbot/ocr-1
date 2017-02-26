@@ -1,19 +1,12 @@
 <!doctype html>
 <title>Optical Character Recognition</title>
-<style>
-#table_dictionary td{
-    border:1px solid black;
-}
-</style>
 <input type=file id=file>
-Threshold: <input type="text" id="input_threshold" value="0.08">
-Step (programming): <input type="text" id="input_step" value="1">
-<button id="button_go">Go</button>
-<div id="main" style="position:relative;border:1px solid black">
-</div>
+Threshold: <input type=text id=input_threshold value="0.08">
+Step (programming): <input type=text id=input_step value=1>
+<button id=button_go>Go</button>
+<div id=main style="position:relative;border:1px solid black"></div>
 Dictionary:
 <div id=div_dictionary style="border:1px solid black">
-<table id=table_dictionary>
-</table>
+<table id=table_dictionary></table>
 </div>
 <script src=https://cdn.rawgit.com/anliting/module/c375517e8c4f68285a6f7926aa4ea7de85bcfc6f/src/module.js async data-main=main.js></script>
