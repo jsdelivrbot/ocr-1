@@ -1,6 +1,7 @@
 function ocr(threshold,dictionary,imageData){
-    dictionary.content.map(word=>{
-        for(let x=0;x+word.image.width<=imageData.width;x++)
+    dictionary.content.map(async word=>{
+        for(let x=0;x+word.image.width<=imageData.width;x++){
+            await new Promise(rs=>setTimeout(rs))
             for(let y=0;y+word.image.height<=imageData.height;y++){
                 let score=matchingScore(word.image,imageData,x,y)
                 if(score<threshold){
@@ -8,6 +9,7 @@ function ocr(threshold,dictionary,imageData){
                     drawRect(x,y,word.image.width,word.image.height)
                 }
             }
+        }
     })
     function matchingScore(a,b,x,y){
         let
