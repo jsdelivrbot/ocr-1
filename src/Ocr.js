@@ -35,23 +35,21 @@
             o.id='input_threshold'
             o.type='text'
             o.value='0.02'
+            this.input_threshold=o
             n.appendChild(o)
         }{
             let o=document.createElement('button')
             o.id='button_go'
             o.innerHTML='Go'
-            o.addEventListener(
-                'click',
-                ()=>{
-                    this.mainDiv.innerHTML=''
-                    setupMain(this.dictionary,this.imageData)
-                    ocr(
-                        parseFloat(input_threshold.value),
-                        this.dictionary,
-                        this.imageData
-                    )
-                }
-            )
+            o.onclick=_=>{
+                this.mainDiv.innerHTML=''
+                setupMain(this.dictionary,this.imageData)
+                ocr(
+                    +this.input_threshold.value,
+                    this.dictionary,
+                    this.imageData
+                )
+            }
             n.appendChild(o)
         }{
             let o=document.createElement('div')

@@ -29,13 +29,11 @@ function setupMain(dictionary,imageData){
             e.preventDefault()
             e.stopPropagation()
             onclick=function(e){
-                var
-                    endX,
-                    endY
                 if(!div)
                     return
-                endX=e.pageX-leftOfMain
-                endY=e.pageY-topOfMain
+                let
+                    endX=e.pageX-leftOfMain,
+                    endY=e.pageY-topOfMain
                 dictionary.push(imageData,{
                     left:startX,
                     top:startY,
@@ -48,13 +46,11 @@ function setupMain(dictionary,imageData){
                 onmousemove=null
             }
             onmousemove=function(e){
-                var
-                    currentX,
-                    currentY
                 if(!div)
                     return
-                currentX=e.pageX-leftOfMain
-                currentY=e.pageY-topOfMain
+                let
+                    currentX=e.pageX-leftOfMain,
+                    currentY=e.pageY-topOfMain
                 div.style.width=currentX-startX+'px'
                 div.style.height=currentY-startY+'px'
             }

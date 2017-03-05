@@ -31,8 +31,7 @@ Dictionary.prototype.push=function(imageData,range){
         return td
     }
     function createCanvas(){
-        var canvas,image
-        canvas=document.createElement('canvas')
+        let canvas=document.createElement('canvas')
         canvas.width=range.right-range.left
         canvas.height=range.bottom-range.top
         canvas.getContext('2d').putImageData(range.image,0,0)
@@ -45,11 +44,10 @@ Dictionary.prototype.push=function(imageData,range){
     }
 }
 function crop(imageData,x,y,w,h){
-    var canvas,context
-    canvas=document.createElement('canvas')
+    let canvas=document.createElement('canvas')
     canvas.width=imageData.width
     canvas.height=imageData.height
-    context=canvas.getContext('2d')
+    let context=canvas.getContext('2d')
     context.putImageData(imageData,0,0)
     return context.getImageData(x,y,w,h)
 }
